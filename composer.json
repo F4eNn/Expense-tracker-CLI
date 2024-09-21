@@ -1,0 +1,19 @@
+{
+    "name": "mateusz/expense-tracker",
+    "description": "expense tracker",
+    "type": "project",
+    "require": {
+        "symfony/console": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mateusz",
+            "email": "mateusz4k@outlook.com"
+        }
+    ]
+}
