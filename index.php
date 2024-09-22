@@ -3,15 +3,22 @@
 
 declare(strict_types=1);
 
-require __DIR__."/vendor/autoload.php";
+require __DIR__ . "/vendor/autoload.php";
 
 
 use App\Command\AddCommand;
+use App\Command\ListCommand;
+use App\Command\SummaryCommand;
+use App\Command\DeleteCommand;
+
 use Symfony\Component\Console\Application;
 
 $application = new Application('Expense tracker', '1.0.0');
 
 $application->add(new AddCommand());
+$application->add(new ListCommand());
+$application->add(new SummaryCommand());
+$application->add(new DeleteCommand());
 
 
 
