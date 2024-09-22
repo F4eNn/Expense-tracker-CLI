@@ -68,11 +68,22 @@ class ExpensesStorage
         };
         return $month_number ? "Total expenses for $month_name: $$total" : "Total expenses: $$total";
     }
-    public function deleteExpense(int $id): void
+    public function deleteExpense(int $id): bool
     {
+        $id_exists = false;
+
+        foreach ($this->data as $v) {
+            if ($v['id'] === $id) {
+                $id_exists = true;
+                break;
+            }
+        }
+        if (!$id_exists) return false;
+
         $this->data = array_filter($this->data, function ($v) use ($id) {
             return $id !== $v['id'];
         }, ARRAY_FILTER_USE_BOTH);
         file_put_contents($this->fileName, json_encode(array_values($this->data), JSON_PRETTY_PRINT));
+        return true;
     }
 }
