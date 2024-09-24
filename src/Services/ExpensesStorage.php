@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
-class ExpensesStorage
+use App\Command\AddCommand;
+
+class ExpensesStorage extends AddCommand
 {
     private $data = [];
     private $id = 1;
@@ -84,6 +86,34 @@ class ExpensesStorage
             return $id !== $v['id'];
         }, ARRAY_FILTER_USE_BOTH);
         file_put_contents($this->fileName, json_encode(array_values($this->data), JSON_PRETTY_PRINT));
+        return true;
+    }
+
+    public function updateExpenses(int $id, array $data): bool
+    {
+
+        $item_to_update = null;
+
+        $shifted_arr = array_filter($this->data, function ($v) use ($id, &$item_to_update) {
+            if ((int)$v['id'] === (int)$id) {
+                $item_to_update = $v;
+            }
+            return (int)$v['id'] !== (int)$id;
+        });
+
+        if (!$item_to_update) return false;
+
+        foreach ($item_to_update as $k => $v) {
+            if ($k !== 'date') {
+                $item_to_update[$k] = (bool) $data[$k] ? $data[$k] : $v;
+            };
+        }
+        $curr_date = date("Y-m-d, H:i:s ");
+        $item_to_update['date'] = $curr_date;
+        array_push($shifted_arr, $item_to_update);
+        
+        file_put_contents($this->fileName, json_encode(array_values($shifted_arr), JSON_PRETTY_PRINT));
+
         return true;
     }
 }

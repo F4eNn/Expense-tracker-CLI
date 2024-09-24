@@ -10,6 +10,9 @@ use App\Command\AddCommand;
 use App\Command\ListCommand;
 use App\Command\SummaryCommand;
 use App\Command\DeleteCommand;
+use App\Command\UpdateCommand;
+
+
 
 use Symfony\Component\Console\Application;
 
@@ -19,7 +22,7 @@ $application->add(new AddCommand());
 $application->add(new ListCommand());
 $application->add(new SummaryCommand());
 $application->add(new DeleteCommand());
-
+$application->add(new UpdateCommand());
 
 
 $application->run();
