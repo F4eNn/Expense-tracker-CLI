@@ -2,7 +2,9 @@
 
 namespace App\Command;
 
+use App\Enums\CMD_options;
 use App\Services\ExpensesStorage;
+
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -15,25 +17,25 @@ use Symfony\Component\Console\Output\OutputInterface;
     name: 'all',
     description: 'View all expenses.',
     hidden: false,
-
 )]
 class ListCommand extends Command
 {
 
     protected function configure(): void
     {
-        $this->addOption('category', 'c', InputOption::VALUE_OPTIONAL, 'Sort by category');
+        $this->addOption(CMD_options::Category->value, null, InputOption::VALUE_OPTIONAL, 'Sort by category');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
         $storage = new ExpensesStorage();
-        $category = $input->getOption('category');
+        $category = $input->getOption(CMD_options::Category->value);
         $expenses = $storage->listExpenses($category);
 
         $table = new Table($output);
         $table->setHeaderTitle('Expenses');
+        echo "\n";
         $table
             ->setHeaders(['ID', 'Date', "Description", "Amount", "Category"])
             ->setRows($expenses);

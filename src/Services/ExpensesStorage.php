@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Command\AddCommand;
+use App\Enums\CMD_options;
 
 class ExpensesStorage extends AddCommand
 {
@@ -28,11 +29,11 @@ class ExpensesStorage extends AddCommand
     {
 
         $data = (object)[
-            "id" => $this->id,
+            CMD_options::ID->value => $this->id,
             "date" => date("Y-m-d, H:i:s"),
-            "description" => $data['description'],
-            "amount" => "$" . $data["amount"],
-            "category" => $data['category']
+            CMD_options::Description->value => $data[CMD_options::Description->value],
+            CMD_options::Amount->value => "$" . $data[CMD_options::Amount->value],
+            CMD_options::Category->value => $data[CMD_options::Category->value]
         ];
         array_push($this->data, (object)$data);
 
@@ -45,7 +46,7 @@ class ExpensesStorage extends AddCommand
             return $this->data;
         }
         $filtered_expenses = array_filter($this->data, function ($el) use ($category) {
-            return $el['category'] === $category;
+            return $el[CMD_options::Category->value] === $category;
         }, ARRAY_FILTER_USE_BOTH);
 
         return $filtered_expenses;
@@ -56,7 +57,7 @@ class ExpensesStorage extends AddCommand
         $total = 0;
         $month_name = null;
         foreach ($this->data as $v) {
-            $value = explode("$", $v['amount'])[1];
+            $value = explode("$", $v[CMD_options::Amount->value])[1];
             $expense_month = date('n', strtotime($v['date']));
             if (!$month_number) {
                 $total += (int)$value;
@@ -111,7 +112,7 @@ class ExpensesStorage extends AddCommand
         $curr_date = date("Y-m-d, H:i:s ");
         $item_to_update['date'] = $curr_date;
         array_push($shifted_arr, $item_to_update);
-        
+
         file_put_contents($this->fileName, json_encode(array_values($shifted_arr), JSON_PRETTY_PRINT));
 
         return true;

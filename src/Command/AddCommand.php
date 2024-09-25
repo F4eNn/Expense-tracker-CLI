@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-
+use App\Enums\CMD_options;
 use App\Services\ExpensesStorage;
 
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
@@ -21,19 +21,14 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 )]
 class AddCommand extends SymfonyCommand
 {
-    private const DESCRIPTION = "description";
-    private const SHORT_DESRIPTION = 'd';
-    private const AMOUNT = "amount";
-    private const SHORT_AMOUNT = 'a';
-    private const CATEGORY = 'category';
-    private const SHORT_CATEGORY = 'c';
+
 
     protected function configure()
     {
         $this
-            ->addOption(self::DESCRIPTION, self::SHORT_DESRIPTION, InputOption::VALUE_REQUIRED, "Description of the expense.")
-            ->addOption(self::AMOUNT, self::SHORT_AMOUNT, InputOption::VALUE_REQUIRED, "Amount of the expense.")
-            ->addOption(self::CATEGORY, self::SHORT_CATEGORY, InputOption::VALUE_REQUIRED, "Category of the expense.");
+            ->addOption(CMD_options::Description->value, null, InputOption::VALUE_REQUIRED, "Description of the expense.")
+            ->addOption(CMD_options::Amount->value, null, InputOption::VALUE_REQUIRED, "Amount of the expense.")
+            ->addOption(CMD_options::Category->value, null, InputOption::VALUE_REQUIRED, "Category of the expense.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -41,12 +36,12 @@ class AddCommand extends SymfonyCommand
         if (!$output instanceof ConsoleOutputInterface) {
             throw new \LogicException("This command accepts only an instance of 'ConsoleOutputInterface'.");
         }
-
+        var_dump(CMD_options::Description->value);
 
         $data = [
-            "description" => $this->validateInput($input->getoption(self::DESCRIPTION), self::DESCRIPTION),
-            "amount" => $this->validateInput($input->getOption(self::AMOUNT), self::AMOUNT, true),
-            "category" => $this->validateInput($input->getOption(self::CATEGORY), self::CATEGORY)
+            "description" => $this->validateInput($input->getoption(CMD_options::Description->value), CMD_options::Description->value),
+            "amount" => $this->validateInput($input->getOption(CMD_options::Amount->value), CMD_options::Amount->value, true),
+            "category" => $this->validateInput($input->getOption(CMD_options::Category->value), CMD_options::Category->value)
         ];
 
         $storage = new ExpensesStorage();

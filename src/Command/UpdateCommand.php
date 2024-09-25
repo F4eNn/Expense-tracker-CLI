@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Enums\CMD_options;
 use App\Services\ExpensesStorage;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -20,14 +21,14 @@ class UpdateCommand extends Command
     {
 
         $this
-            ->addOption('description', 'd', InputOption::VALUE_OPTIONAL, 'Change description of the epxenses')
-            ->addOption('amount', 'a', InputOption::VALUE_OPTIONAL, 'Change amount of the expenses')
-            ->addOption("category", 'c', InputOption::VALUE_OPTIONAL)
-            ->addOption("id", null, InputOption::VALUE_REQUIRED, 'ID of the expenses');
+            ->addOption(CMD_options::Description->value, null, InputOption::VALUE_OPTIONAL, 'Change description of the epxenses')
+            ->addOption(CMD_options::Amount->value, null, InputOption::VALUE_OPTIONAL, 'Change amount of the expenses')
+            ->addOption(CMD_options::Category->value, null, InputOption::VALUE_OPTIONAL)
+            ->addOption(CMD_options::ID->value, null, InputOption::VALUE_REQUIRED, 'ID of the expenses');
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $id = $input->getOption("id");
+        $id = $input->getOption(CMD_options::ID->value);
         $description = $input->getOption('description');
         $amount = $input->getOption('amount');
         $category = $input->getOption('category');
@@ -53,10 +54,10 @@ class UpdateCommand extends Command
             return Command::FAILURE;
         }
         $data_to_update = [
-            "description" => $description,
-            "amount" => "$" . $amount,
-            "category" => $category,
-            "id" => (int)$input->getOption("id")
+            CMD_options::Description->value => $description,
+            CMD_options::Amount->value => "$" . $amount,
+            CMD_options::Category->value => $category,
+            CMD_options::ID->value => (int)$input->getOption(CMD_options::ID->value)
         ];
         $storage = new ExpensesStorage();
         $res = $storage->updateExpenses((int)$id, $data_to_update);

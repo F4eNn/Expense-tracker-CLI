@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Enums\CMD_options;
 use App\Services\ExpensesStorage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -19,12 +20,12 @@ class SummaryCommand extends Command
     protected function configure()
     {
         $this
-            ->addOption("month", "m", InputOption::VALUE_OPTIONAL, "Total expenses for selected month.");
+            ->addOption(CMD_options::Month->value, null, InputOption::VALUE_OPTIONAL, "Total expenses for selected month.");
     }
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $storage = new ExpensesStorage();
-        $month = $input->getOption("month");
+        $month = $input->getOption(CMD_options::Month->value);
 
         if ($month) {
             if (!is_numeric($month)) {
