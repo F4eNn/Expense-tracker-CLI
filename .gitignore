@@ -2,3 +2,4 @@ composer.lock
 vendor/**
 budget.json
 data.json
+budget.csv
