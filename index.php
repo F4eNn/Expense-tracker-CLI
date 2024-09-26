@@ -11,6 +11,7 @@ use App\Command\BudgetCommand;
 use App\Command\ListCommand;
 use App\Command\SummaryCommand;
 use App\Command\DeleteCommand;
+use App\Command\ExportToCSVCommand;
 use App\Command\UpdateCommand;
 
 
@@ -26,6 +27,7 @@ $application->add(new SummaryCommand());
 $application->add(new DeleteCommand());
 $application->add(new UpdateCommand());
 $application->add(new BudgetCommand());
+$application->add(new ExportToCSVCommand());
 
 
 $application->run();
