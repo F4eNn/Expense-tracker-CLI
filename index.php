@@ -7,10 +7,12 @@ require __DIR__ . "/vendor/autoload.php";
 
 
 use App\Command\AddCommand;
+use App\Command\BudgetCommand;
 use App\Command\ListCommand;
 use App\Command\SummaryCommand;
 use App\Command\DeleteCommand;
 use App\Command\UpdateCommand;
+
 
 
 
@@ -23,6 +25,7 @@ $application->add(new ListCommand());
 $application->add(new SummaryCommand());
 $application->add(new DeleteCommand());
 $application->add(new UpdateCommand());
+$application->add(new BudgetCommand());
 
 
 $application->run();

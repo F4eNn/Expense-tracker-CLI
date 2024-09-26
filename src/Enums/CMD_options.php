@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum CMD_options: string
 {
+    
     case Description = "description";
     case Amount = 'amount';
     case Category = 'category';
@@ -14,4 +15,5 @@ enum CMD_options: string
     case Summary = "summary";
     case Month = 'month';
     case ID = 'id';
+    case Limit = 'limit';
 }
