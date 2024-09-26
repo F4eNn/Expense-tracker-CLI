@@ -21,8 +21,6 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 )]
 class AddCommand extends SymfonyCommand
 {
-
-
     protected function configure()
     {
         $this
@@ -36,7 +34,6 @@ class AddCommand extends SymfonyCommand
         if (!$output instanceof ConsoleOutputInterface) {
             throw new \LogicException("This command accepts only an instance of 'ConsoleOutputInterface'.");
         }
-        var_dump(CMD_options::Description->value);
 
         $data = [
             "description" => $this->validateInput($input->getoption(CMD_options::Description->value), CMD_options::Description->value),
@@ -46,7 +43,7 @@ class AddCommand extends SymfonyCommand
 
         $storage = new ExpensesStorage();
         $storage->addNewExpense($data);
-
+        echo "\e[32m Succesffully added expense.";
         return SymfonyCommand::SUCCESS;
     }
 

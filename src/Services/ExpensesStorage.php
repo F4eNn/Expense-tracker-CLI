@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Command\AddCommand;
+use App\Command\BudgetCommand;
 use App\Enums\CMD_options;
 
-class ExpensesStorage extends AddCommand
+class ExpensesStorage
 {
     private $data = [];
     private $id = 1;
@@ -27,10 +27,13 @@ class ExpensesStorage extends AddCommand
 
     public function addNewExpense(array $data)
     {
+        $date= date("Y-m-d, H:i:s");
+        $budget = new BudgetCommand();
+        $budget->getBudget($date, $data[CMD_options::Amount->value]);
 
         $data = (object)[
             CMD_options::ID->value => $this->id,
-            "date" => date("Y-m-d, H:i:s"),
+            "date" => $date,
             CMD_options::Description->value => $data[CMD_options::Description->value],
             CMD_options::Amount->value => "$" . $data[CMD_options::Amount->value],
             CMD_options::Category->value => $data[CMD_options::Category->value]
@@ -111,6 +114,9 @@ class ExpensesStorage extends AddCommand
         }
         $curr_date = date("Y-m-d, H:i:s ");
         $item_to_update['date'] = $curr_date;
+        $budget = new BudgetCommand();
+        $budget->getBudget($curr_date, (int)explode('$',$data[CMD_options::Amount->value])[1]);
+
         array_push($shifted_arr, $item_to_update);
 
         file_put_contents($this->fileName, json_encode(array_values($shifted_arr), JSON_PRETTY_PRINT));
