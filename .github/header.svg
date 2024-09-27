@@ -1,0 +1,29 @@
+<svg fill="none" viewBox="0 0 800 400" width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+	<foreignObject width="100%" height="100%">
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<style>
+                @keyframes background{
+                    0%{
+                        opacity: .6;
+                    }
+                    100% {
+                        opacity: 1;
+                    }
+                }
+    			h1 {
+    				font-size: 40px;
+    				line-height: 1.3;
+    				letter-spacing: 5px;
+    				text-transform: uppercase;
+                    color: transparent;
+                    background: radial-gradient(circle, rgba(0,212,255,1) 16%, rgba(1,179,233,1) 30%, rgba(2,149,213,1) 39%, rgba(4,111,188,1) 47%, rgba(9,9,121,1) 77%, rgba(2,0,36,1) 95%) no-repeat;
+                    background-clip: text;
+                    animation: background 2s infinite alternate;
+    			}
+                p {
+                    font-size: 14px;
+                }
+    		</style>
+    	</div>
+    </foreignObject>
+</svg>
