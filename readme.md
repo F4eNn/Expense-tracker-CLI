@@ -51,6 +51,11 @@
 ```bash
 ./index.php delete --id 1
 ```
+#### Update expenses
+
+```bash
+./index.php udpate --id 1 --description="Monday Lunch" --amount 25
+```
 
 #### Summary of expenses
 
