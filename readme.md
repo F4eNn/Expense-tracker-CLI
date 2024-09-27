@@ -1,11 +1,9 @@
 <div align="center">
-	<br>
 	<a href="https://github.com/F4eNn/Expense-tracker-CLI">
 		<picture>
-		  <img src="./.github/header.svg" width="800" height="400" alt="Click to see the source">
+		  <img src="./.github/header.svg" width="600" height="300" alt="Click to see the source">
 		</picture>
 	</a>
-	<br>
 </div>
 <h3 align="center">Expense tracker application to manage your finances in CLI.</h3>
 <div align="center" ><strong><a href="https://roadmap.sh/projects/expense-tracker">Inspiration</a></strong></div>
