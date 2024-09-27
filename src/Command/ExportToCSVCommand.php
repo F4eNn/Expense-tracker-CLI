@@ -35,6 +35,8 @@ class ExportToCSVCommand extends Command
             fputcsv($file_pointer, $i);
         }
         fclose($file_pointer);
+        
+        $output->writeln("<info>Budget successfully exported.</info>");
         return Command::SUCCESS;
     }
 }
